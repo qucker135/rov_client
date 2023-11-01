@@ -27,6 +27,11 @@ def test_model_pos2(model_data2):
     assert model_local.pos == (0, 9)
 
 
+def test_model_pos3(model_data4):
+    model_local = Model(model_data4)
+    assert model_local.pos == None
+
+
 def test_model_pos_setter1(model1):
     model1.pos = (0, 0)
     assert model1.pos == (0, 0)
@@ -102,3 +107,8 @@ def test_finder_find_path2(model_data2, finder):
         (4, 5), (5, 5), (5, 4), (5, 3),
         (5, 2), (5, 1)
     ]
+
+
+def test_finder_find_path3(model_data3, finder):
+    model_local = Model(model_data3)
+    assert finder.find_path(model_local) == []
