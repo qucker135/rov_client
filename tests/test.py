@@ -1,4 +1,8 @@
+import pytest
+import requests
+import responses
 from src.model import Model
+from src.utils import Direction, State
 
 
 def test_model_creation(model_data1):
@@ -34,3 +38,50 @@ def test_model_pos_setter2(model_data2):
     model_local = Model(model_data2)
     model_local.pos = (0, 0)
     assert model_local.pos == (0, 0)
+
+
+@responses.activate
+def test_controller_get(controller, model1, server_response, server_addr):
+    responses.add(
+        responses.GET,
+        server_addr,
+        json=server_response,
+        status=200
+    )
+    controller.get_data(model1, server_addr)
+    assert model1.get_data() == server_response["game_state"]
+
+
+@responses.activate
+def test_controller_post1(controller, server_addr, post_response1):
+    responses.add(
+        responses.POST,
+        server_addr,
+        json=post_response1,
+        status=200
+    )
+    assert controller.post_command(server_addr, Direction.UP) == State.SUCCESS
+
+
+@responses.activate
+def test_controller_post2(controller, server_addr, post_response2):
+    responses.add(
+        responses.POST,
+        server_addr,
+        json=post_response2,
+        status=200
+    )
+    assert controller.post_command(server_addr, Direction.UP) == State.LOSS
+
+
+@responses.activate
+def test_controller_post3(controller, server_addr, post_response3):
+    responses.add(
+        responses.POST,
+        server_addr,
+        json=post_response3,
+        status=200
+    )
+    assert controller.post_command(server_addr, Direction.UP) == State.IN_PROGRESS
+
+

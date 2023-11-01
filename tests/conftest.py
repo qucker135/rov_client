@@ -1,5 +1,6 @@
 import pytest
 from src.model import Model
+from src.controller import Controller
 
 
 @pytest.fixture
@@ -37,3 +38,52 @@ def model_data2():
         ['o', 'o', ' ', ' ', ' ', ' ', ' ', ' ', 'o', 'o'],
         ['o', ' ', 'o', 'o', ' ', ' ', 'o', ' ', 'o', ' ']
     ]
+
+
+@pytest.fixture
+def controller():
+    return Controller()
+
+
+@pytest.fixture
+def server_addr():
+    return "http://localhost:8000/"
+
+
+@pytest.fixture
+def server_response():
+    return {
+        "game_state": [
+            [" ", "o", " ", "o", " ", " ", " ", " ", "o", "o"],
+            ["o", " ", " ", " ", "o", " ", "o", "o", "o", "o"],
+            [" ", "o", " ", "x", "o", " ", " ", "o", " ", " "],
+            ["o", " ", "r", " ", " ", " ", " ", " ", " ", "o"],
+            [" ", " ", " ", "o", " ", " ", " ", " ", " ", " "],
+            [" ", "o", "o", " ", " ", " ", "o", " ", " ", " "],
+            [" ", " ", "o", " ", " ", " ", "o", "o", "o", " "],
+            [" ", "o", " ", " ", " ", " ", " ", " ", "o", " "],
+            ["o", " ", "o", " ", " ", " ", "o", " ", " ", " "],
+            ["o", "o", " ", " ", " ", " ", " ", " ", " ", " "]
+        ]
+    }
+
+
+@pytest.fixture
+def post_response1():
+    return {
+        "result": 1
+    }
+
+
+@pytest.fixture
+def post_response2():
+    return {
+        "result": 2
+    }
+
+
+@pytest.fixture
+def post_response3():
+    return {
+        "result": 3
+    }
