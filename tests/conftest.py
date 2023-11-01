@@ -1,6 +1,7 @@
 import pytest
 from src.model import Model
 from src.controller import Controller
+from src.finder import Finder
 
 
 @pytest.fixture
@@ -87,3 +88,8 @@ def post_response3():
     return {
         "result": 3
     }
+
+
+@pytest.fixture
+def finder():
+    return Finder()

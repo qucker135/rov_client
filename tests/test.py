@@ -1,5 +1,3 @@
-import pytest
-import requests
 import responses
 from src.model import Model
 from src.utils import Direction, State
@@ -82,6 +80,25 @@ def test_controller_post3(controller, server_addr, post_response3):
         json=post_response3,
         status=200
     )
-    assert controller.post_command(server_addr, Direction.UP) == State.IN_PROGRESS
+    assert controller.post_command(
+        server_addr, Direction.UP
+        ) == State.IN_PROGRESS
 
 
+def test_finder_find_path1(model1, finder):
+    assert finder.find_path(model1) == [
+        (9, 7), (8, 7), (8, 6), (7, 6),
+        (6, 6), (6, 5), (5, 5), (4, 5),
+        (3, 5), (3, 6), (3, 7), (3, 8),
+        (2, 8), (1, 8), (0, 8), (0, 9)
+    ]
+
+
+def test_finder_find_path2(model_data2, finder):
+    model_local = Model(model_data2)
+    assert finder.find_path(model_local) == [
+        (0, 9), (1, 9), (2, 9), (3, 9),
+        (3, 8), (3, 7), (3, 6), (3, 5),
+        (4, 5), (5, 5), (5, 4), (5, 3),
+        (5, 2), (5, 1)
+    ]
