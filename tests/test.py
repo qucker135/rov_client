@@ -29,7 +29,7 @@ def test_model_pos2(model_data2):
 
 def test_model_pos3(model_data4):
     model_local = Model(model_data4)
-    assert model_local.pos == None
+    assert model_local.pos is None
 
 
 def test_model_pos_setter1(model1):
